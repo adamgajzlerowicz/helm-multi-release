@@ -32,7 +32,6 @@
     const apiUrl = 'http://localhost:5000'
 
     const renderList = items => {
-        console.log(items);
         document.getElementById('app').innerHTML = listTemplate(({ items }));
     };
 
@@ -42,7 +41,7 @@
 
     const deleteItem = (id) => {
         console.log(id);
-        // fetch(`apiUrl/${id}`, { method: 'DELETE'}).then(data=> data.json()).then(fetchItems)
+        fetch(`${apiUrl}?name=${id}`, { method: 'DELETE'}).then(data=> data.json()).then(fetchItems)
     }
 
     fetchItems()
