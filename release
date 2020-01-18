@@ -1,0 +1,5 @@
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+PREFIX="git-branch-"
+
+RELEASE_NAME=$PREFIX$BRANCH
+helm upgrade --install $RELEASE_NAME hello
