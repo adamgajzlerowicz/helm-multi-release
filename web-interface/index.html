@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Helm manage</title>
+</head>
+<body>
+
+<div id="app"></div>
+
+<div id="list-template">
+    <ul class="list">
+        {{#each items}}
+        <li>{{this.name}}</li>
+        <li>{{this.updated}}</li>
+        <li><button onclick="deleteItem('{{this.name}}')">delete</button></li>
+        {{/each}}
+    </ul>
+</div>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+<script>
+
+    const listTemplate = Handlebars.compile(document.getElementById('list-template').innerHTML)
+    const template$ = document.getElementById('list-template')
+    template$.parentNode.removeChild(template$)
+    const apiUrl = 'http://localhost:5000'
+
+    const renderList = items => {
+        console.log(items);
+        document.getElementById('app').innerHTML = listTemplate(({ items }));
+    };
+
+    const fetchItems = () => {
+        fetch(apiUrl).then(data=> data.json()).then(renderList)
+    }
+
+    const deleteItem = (id) => {
+        console.log(id);
+        // fetch(`apiUrl/${id}`, { method: 'DELETE'}).then(data=> data.json()).then(fetchItems)
+    }
+
+    fetchItems()
+
+</script>
+
+</html>
